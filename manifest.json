@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"permissions": ["tabs", "*://*/*"],
 	"browser_action": {
-		"default_icon": "/src/icon/icon_128.png"
+		"default_icon": "/src/icon/icon.png"
 	},
 	"content_scripts": [{
 		"matches": ["*://*/*"],
