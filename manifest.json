@@ -1,0 +1,17 @@
+{
+	"name": "Inspector",
+	"version": "0.0.1",
+	"permissions": ["tabs", "*://*/*"],
+	"browser_action": {
+		"default_icon": "/src/icon/icon_128.png"
+	},
+	"content_scripts": [{
+		"matches": ["*://*/*"],
+		"js": ["/src/js/lib/html-inspector.js", "/src/js/settings.js", "/src/js/content.js"]
+	}],
+	"background": {
+		"scripts": ["/src/js/background.js"]
+	},
+	"description": "Extends the Developer Tools",
+	"manifest_version": 2
+}
