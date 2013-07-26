@@ -1,9 +1,14 @@
 {
-	"name": "Inspector",
-	"version": "0.0.1",
+	"name": "H:inspector",
+	"version": "0.1.0",
 	"permissions": ["tabs", "*://*/*"],
+   "icons": {
+      "16": "/src/icon/icon_16.png",
+      "48": "/src/icon/icon_48.png",
+      "128": "/src/icon/icon_128.png"
+   },
 	"browser_action": {
-		"default_icon": "/src/icon/icon.png"
+		"default_icon": "/src/icon/badge_on.png"
 	},
 	"content_scripts": [{
 		"matches": ["*://*/*"],
