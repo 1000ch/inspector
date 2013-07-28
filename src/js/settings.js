@@ -1,1 +1,1 @@
-var settings = {};
+var inspectorSettings = {};

@@ -1,6 +1,9 @@
 (function() {
-	//this is global
+	//this is master
 	var settings = {isRunning: true};
+
+	//check chrome storage and update icon.
+	//if data is not set yet, set default settings.
 	chrome.storage.local.get(Object.keys(settings), function(items) {
 		if(items.isRunning === undefined) {
 			chrome.storage.local.set(settings, function() {
@@ -12,6 +15,8 @@
 		changeIconState(settings.isRunning);
 	});
 
+	//when tab is activated,
+	//update contentScript settings.
 	chrome.tabs.onActivated.addListener(function(activeInfo) {
 		//if active tab is changed
 		changeIconState(settings.isRunning);
@@ -69,7 +74,7 @@
 	}
 
 	/**
-	 * noop
+	 * noop function
 	 */
 	function noop() {}
 
