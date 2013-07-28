@@ -1,7 +1,7 @@
 {
     "name": "H:inspector",
-    "version": "0.1.0",
-    "permissions": ["tabs", "*://*/*"],
+    "version": "0.2.0",
+    "permissions": ["tabs", "storage", "*://*/*"],
     "icons": {
       "16": "/src/icon/icon_16.png",
       "48": "/src/icon/icon_48.png",
@@ -17,6 +17,6 @@
     "background": {
         "scripts": ["/src/js/background.js"]
     },
-    "description": "Extends the Developer Tools",
+    "description": "HTMLInspector wrapper as chrome extension.",
     "manifest_version": 2
 }
