@@ -10,7 +10,7 @@
 
 ## Lisence
 
-HTMLInspector is to see [repository](https://github.com/philipwalton/html-inspector).
+HTMLInspector is to see [repository](https://github.com/philipwalton/html-inspector).  
 Contribution resources are correspond to contributors.  
 Copyright [1000ch](https://twitter.com/1000ch)  
 Lisenced under the GPL Lisence version 3.  
