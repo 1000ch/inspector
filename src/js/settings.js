@@ -9,7 +9,7 @@
 
 	ready(function() {
 		var settingArea = document.getElementById("inspectorOption");
-		chrome.storage.local.get(function(items) {
+		chrome.storage.local.get(["inspectorSettings"], function(items) {
 			if(items.inspectorSettings) {
 				inspectorSettings = items.inspectorSettings;
 			}

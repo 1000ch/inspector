@@ -11,7 +11,7 @@
 		}
 		if(HTMLInspector) {
 			HTMLInspector.inspect(inspectorSettings);
-			console.log("*** settings");
+			console.log("*** settings from message");
 			console.log(inspectorSettings);
 		}
 	});
@@ -25,8 +25,9 @@
 			return;
 		}
 		ready(function() {
-			alert(JSON.stringify(inspectorSettings));
 			HTMLInspector.inspect(inspectorSettings);
+			console.log("*** settings from saved data");
+			console.log(inspectorSettings);
 		});
 	});
 
