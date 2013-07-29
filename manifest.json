@@ -1,6 +1,6 @@
 {
     "name": "H:inspector",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "permissions": ["tabs", "storage", "*://*/*"],
     "icons": {
       "16": "/src/icon/icon_16.png",
@@ -12,11 +12,12 @@
     },
     "content_scripts": [{
         "matches": ["*://*/*"],
-        "js": ["/src/js/lib/html-inspector.js", "/src/js/settings.js", "/src/js/content.js"]
+        "js": ["/src/js/lib/html-inspector.js", "/src/js/content.js"]
     }],
     "background": {
-        "scripts": ["/src/js/background.js"]
+        "page": "/src/html/background.html"
     },
+	"devtools_page": "/src/html/devtools.background.html",
     "description": "HTMLInspector wrapper as chrome extension.",
     "manifest_version": 2
 }
