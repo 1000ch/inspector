@@ -2,12 +2,14 @@
 	//this is master
 	var settings = {isRunning: true};
 
+	var settingKeys = Object.keys(settings);
+
 	//check chrome storage and update icon.
 	//if data is not set yet, set default settings.
-	chrome.storage.local.get(Object.keys(settings), function(items) {
+	chrome.storage.local.get(settingKeys, function(items) {
 		if(items.isRunning === undefined) {
 			chrome.storage.local.set(settings, function() {
-				//here is asynchronous i/o though, don't mind.
+				//here is asynchronous i/o though, nothing to do.
 			});
 		} else {
 			settings.isRunning = items.isRunning;
@@ -15,12 +17,13 @@
 		changeIconState(settings.isRunning);
 	});
 
-	//when tab is activated,
+	//when a tab is activated,
 	//update contentScript settings.
 	chrome.tabs.onActivated.addListener(function(activeInfo) {
 		//if active tab is changed
 		changeIconState(settings.isRunning);
 
+		//message object
 		var message = {
 			runningState: settings.isRunning
 		};
@@ -29,26 +32,27 @@
 		chrome.tabs.sendMessage(activeInfo.tabId, message, noop);
 	});
 
+	//when the icon is clicked
 	chrome.browserAction.onClicked.addListener(function(tab) {
-		if(tab) {
-			//toggle flag to inspect
-			settings.isRunning = !settings.isRunning;
-
-			//save the flag
-			chrome.storage.local.set(settings, noop);
-
-			//change icon state
-			changeIconState(settings.isRunning);
-
-			//if state is changed to inspect, send message
-			var message = {
-				runningState: settings.isRunning,
-				command: "inspect"
-			};
-
-			//send message
-			chrome.tabs.sendMessage(tab.id, message, noop);
+		if(!tab) {
+			return;
 		}
+		//toggle flag to inspect
+		settings.isRunning = !settings.isRunning;
+
+		//save the flag
+		chrome.storage.local.set(settings, noop);
+
+		//change icon state
+		changeIconState(settings.isRunning);
+
+		//if state is changed to inspect, send message
+		var message = {
+			runningState: settings.isRunning
+		};
+
+		//send message
+		chrome.tabs.sendMessage(tab.id, message, noop);
 	});
 
 	/**

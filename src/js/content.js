@@ -8,10 +8,11 @@
 	//listen message
 	chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 		isRunning = !!message.runningState;
-		if(isRunning) {
-			if(message.command === "inspect" && HTMLInspector) {
-				HTMLInspector.inspect(inspectorSettings);
-			}
+		if(!isRunning) {
+			return;
+		}
+		if(HTMLInspector) {
+			HTMLInspector.inspect(inspectorSettings);
 		}
 	});
 
@@ -22,19 +23,19 @@
 	//if true is set, execute inspection.
 	chrome.storage.local.get(["isRunning"], function(items) {
 		isRunning = !!items.isRunning;
-		if(isRunning) {
-			if(stateArray.indexOf(document.readyState) !== -1) {
+		if(!isRunning) {
+			return;
+		}
+		if(stateArray.indexOf(document.readyState) !== -1) {
+			if(HTMLInspector) {
+				HTMLInspector.inspect(inspectorSettings);
+			}
+		} else {
+			document.addEventListener("DOMContentLoaded", function() {
 				if(HTMLInspector) {
 					HTMLInspector.inspect(inspectorSettings);
 				}
-			} else {
-				document.addEventListener("DOMContentLoaded", function() {
-					console.log("DOMContentLoaded");
-					if(HTMLInspector) {
-						HTMLInspector.inspect(inspectorSettings);
-					}
-				});
-			}
+			});
 		}
 	});
 })();
