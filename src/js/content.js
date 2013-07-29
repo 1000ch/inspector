@@ -11,6 +11,8 @@
 		}
 		if(HTMLInspector) {
 			HTMLInspector.inspect(inspectorSettings);
+			console.log("*** settings");
+			console.log(inspectorSettings);
 		}
 	});
 
