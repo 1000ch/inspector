@@ -1,9 +1,10 @@
 {
     "name": "H:inspector",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "permissions": ["tabs", "storage", "*://*/*"],
     "icons": {
       "16": "/src/icon/icon_16.png",
+      "32": "/src/icon/icon_32.png",
       "48": "/src/icon/icon_48.png",
       "128": "/src/icon/icon_128.png"
     },
