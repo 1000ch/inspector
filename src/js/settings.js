@@ -6,6 +6,9 @@
 		excludeSubTree: []
 	};
 
+	var REPLACER = null;
+	var SPACES = "    ";
+
 	//copy settings
 	var inspectorSettings = extend({}, defaultInspectorSettings);
 
@@ -15,11 +18,11 @@
 			if(items.inspectorSettings) {
 				inspectorSettings = items.inspectorSettings;
 			}
-			settingTextarea.value = JSON.stringify(inspectorSettings, null, "    ");
+			settingTextarea.value = JSON.stringify(inspectorSettings, REPLACER, SPACES);
 		});
 
 		document.getElementById("defaultOption").addEventListener("click", function() {
-			settingTextarea.value = JSON.stringify(defaultInspectorSettings, null, "    ");
+			settingTextarea.value = JSON.stringify(defaultInspectorSettings, REPLACER, SPACES);
 		});
 
 		document.getElementById("reloadOption").addEventListener("click", function() {
@@ -27,7 +30,7 @@
 				if(items.inspectorSettings) {
 					inspectorSettings = items.inspectorSettings;
 				}
-				settingTextarea.value = JSON.stringify(inspectorSettings, null, "    ");
+				settingTextarea.value = JSON.stringify(inspectorSettings, REPLACER, SPACES);
 			});
 		});
 
