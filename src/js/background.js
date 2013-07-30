@@ -1,5 +1,5 @@
 (function() {
-	//this is master
+	//default settings
 	var defaultInspectorSettings = {
 		domRoot: "body",
 		exclude: "iframe",
@@ -27,11 +27,7 @@
 		}
 		if(items.inspectorSettings === undefined) {
 			chrome.storage.local.set({
-				inspectorSettings: {
-					domRoot: "body",
-					exclude: "iframe",
-					excludeSubTree: []
-				}
+				inspectorSettings: defaultInspectorSettings
 			}, noop);
 		} else {
 			settings.inspectorSettings = items.inspectorSettings;
@@ -46,17 +42,8 @@
 		changeIconState(settings.isRunning);
 
 		syncInspectorSettings(function(inspectorSettings) {
-			//message object
-			var message = {
-				runningState: settings.isRunning,
-				inspectorSettings: settings.inspectorSettings
-			};
-			try {
-				//update contentScript setting
-				chrome.tabs.sendMessage(activeInfo.tabId, message, noop);
-			} catch(e) {
-				console.log(e);
-			}
+			//update contentScript setting
+			sendMessage(activeInfo.tabId, settings.isRunning, settings.inspectorSettings, noop);
 		});
 	});
 
@@ -76,21 +63,35 @@
 
 		syncInspectorSettings(function(inspectorSettings) {
 			//if state is changed to inspect, send message
-			var message = {
-				runningState: settings.isRunning,
-				inspectorSettings: settings.inspectorSettings
-			};
-
-			//send message
-			chrome.tabs.sendMessage(tab.id, message, noop);
+			sendMessage(tab.id, settings.isRunning, settings.inspectorSettings, noop);
 		});
 	});
 
 	/**
+	 * send message to tab
+	 * @param {Number} tabId
+	 * @param {Boolean} isRunning
+	 * @param {Object} inspectorSettings
+	 * @param {Function} callback
+	 */
+	function sendMessage(tabId, isRunning, inspectorSettings, callback) {
+		try {
+			chrome.tabs.sendMessage(tabId, {
+				runningState: isRunning,
+				inspectorSettings: inspectorSettings
+			}, callback);
+		} catch(e) {
+			console.log(e);
+		}
+	}
+
+	/**
 	 * get newest inspector settings from chrome storage
-	 * @param callback
+	 * @param {Function} callback
 	 */
 	function syncInspectorSettings(callback) {
+		//get inspectorSettings from chrome storage
+		//if settings are not saved, set default value
 		chrome.storage.local.get(["inspectorSettings"], function(items) {
 			if(items.inspectorSettings) {
 				settings.inspectorSettings = items.inspectorSettings;
@@ -128,10 +129,12 @@
 
 	/**
 	 * extend object
+	 * @param {Object} obj
+	 * @param {Object} src
 	 */
 	function extend(obj, src) {
 		for(var key in src) {
-			if(src.hasOwnProperty(key) && src[key]) {
+			if(src.hasOwnProperty(key)) {
 				obj[key] = src[key];
 			}
 		}

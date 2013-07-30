@@ -1,23 +1,25 @@
 (function() {
+	//default settings
 	var defaultInspectorSettings = {
 		domRoot: "body",
 		exclude: "iframe",
 		excludeSubTree: []
 	};
 
+	//copy settings
 	var inspectorSettings = extend({}, defaultInspectorSettings);
 
 	ready(function() {
-		var settingArea = document.getElementById("inspectorOption");
+		var settingTextarea = document.getElementById("inspectorOption");
 		chrome.storage.local.get(["inspectorSettings"], function(items) {
 			if(items.inspectorSettings) {
 				inspectorSettings = items.inspectorSettings;
 			}
-			settingArea.value = JSON.stringify(inspectorSettings);
+			settingTextarea.value = JSON.stringify(inspectorSettings);
 		});
 
 		document.getElementById("defaultOption").addEventListener("click", function() {
-			settingArea.value = JSON.stringify(defaultInspectorSettings);
+			settingTextarea.value = JSON.stringify(defaultInspectorSettings);
 		});
 
 		document.getElementById("reloadOption").addEventListener("click", function() {
@@ -25,12 +27,12 @@
 				if(items.inspectorSettings) {
 					inspectorSettings = items.inspectorSettings;
 				}
-				settingArea.value = JSON.stringify(inspectorSettings);
+				settingTextarea.value = JSON.stringify(inspectorSettings);
 			});
 		});
 
 		document.getElementById("saveOption").addEventListener("click", function() {
-			var settingText = settingArea.value;
+			var settingText = settingTextarea.value;
 			try {
 				var settingJson = JSON.parse(settingText);
 				chrome.storage.local.set({
@@ -44,7 +46,7 @@
 
 	/**
 	 * listen DOMContentLoaded
-	 * @param callback
+	 * @param {Function} callback
 	 */
 	function ready(callback) {
 		if(["complete", "loaded", "interactive"].indexOf(document.readyState) !== -1) {
@@ -58,10 +60,12 @@
 
 	/**
 	 * extend object
+	 * @param {Object} obj
+	 * @param {Object} src
 	 */
 	function extend(obj, src) {
 		for(var key in src) {
-			if(src.hasOwnProperty(key) && src[key]) {
+			if(src.hasOwnProperty(key)) {
 				obj[key] = src[key];
 			}
 		}

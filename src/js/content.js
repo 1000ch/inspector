@@ -33,7 +33,7 @@
 
 	/**
 	 * listen DOMContentLoaded
-	 * @param callback
+	 * @param {Function} callback
 	 */
 	function ready(callback) {
 		if(["complete", "loaded", "interactive"].indexOf(document.readyState) !== -1) {
