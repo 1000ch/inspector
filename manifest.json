@@ -1,6 +1,6 @@
 {
     "name": "H:inspector",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "permissions": ["tabs", "storage", "*://*/*"],
     "icons": {
       "16": "/src/icon/icon_16.png",
