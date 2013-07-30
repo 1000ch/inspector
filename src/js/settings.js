@@ -15,11 +15,11 @@
 			if(items.inspectorSettings) {
 				inspectorSettings = items.inspectorSettings;
 			}
-			settingTextarea.value = JSON.stringify(inspectorSettings);
+			settingTextarea.value = JSON.stringify(inspectorSettings, null, "    ");
 		});
 
 		document.getElementById("defaultOption").addEventListener("click", function() {
-			settingTextarea.value = JSON.stringify(defaultInspectorSettings);
+			settingTextarea.value = JSON.stringify(defaultInspectorSettings, null, "    ");
 		});
 
 		document.getElementById("reloadOption").addEventListener("click", function() {
@@ -27,7 +27,7 @@
 				if(items.inspectorSettings) {
 					inspectorSettings = items.inspectorSettings;
 				}
-				settingTextarea.value = JSON.stringify(inspectorSettings);
+				settingTextarea.value = JSON.stringify(inspectorSettings, null, "    ");
 			});
 		});
 
