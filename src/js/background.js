@@ -117,7 +117,7 @@
 			badgeText = "on";
 		} else {
 			iconPath = "/src/icon/badge_off.png";
-			badgeText = "off";
+			badgeText = "";
 		}
 		chrome.browserAction.setIcon({
 			path: iconPath
