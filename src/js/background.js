@@ -5,13 +5,11 @@
 		exclude: "iframe",
 		excludeSubTree: []
 	};
-	var settings = {
-		isRunning: true
-	};
 
-	extend(settings, {
-		inspectorSettings: defaultInspectorSettings
-	});
+	var settings = {
+		isRunning: true,
+		inspectorSettings: null
+	};
 
 	var settingKeys = Object.keys(settings);
 
@@ -19,18 +17,9 @@
 	//if data is not set yet, set default settings.
 	chrome.storage.local.get(settingKeys, function(items) {
 		if(items.isRunning === undefined) {
-			chrome.storage.local.set({
-				isRunning: true
-			}, noop);
+			chrome.storage.local.set({isRunning: true}, noop);
 		} else {
 			settings.isRunning = items.isRunning;
-		}
-		if(items.inspectorSettings === undefined) {
-			chrome.storage.local.set({
-				inspectorSettings: defaultInspectorSettings
-			}, noop);
-		} else {
-			settings.inspectorSettings = items.inspectorSettings;
 		}
 		changeIconState(settings.isRunning);
 	});
@@ -41,7 +30,7 @@
 		//if active tab is changed
 		changeIconState(settings.isRunning);
 
-		syncInspectorSettings(function(inspectorSettings) {
+		fetchInspectorSettings(function(inspectorSettings) {
 			//update contentScript setting
 			sendMessage(activeInfo.tabId, settings.isRunning, settings.inspectorSettings, noop);
 		});
@@ -61,7 +50,7 @@
 		//change icon state
 		changeIconState(settings.isRunning);
 
-		syncInspectorSettings(function(inspectorSettings) {
+		fetchInspectorSettings(function(inspectorSettings) {
 			//if state is changed to inspect, send message
 			sendMessage(tab.id, settings.isRunning, settings.inspectorSettings, noop);
 		});
@@ -89,7 +78,7 @@
 	 * get newest inspector settings from chrome storage
 	 * @param {Function} callback
 	 */
-	function syncInspectorSettings(callback) {
+	function fetchInspectorSettings(callback) {
 		//get inspectorSettings from chrome storage
 		//if settings are not saved, set default value
 		chrome.storage.local.get(["inspectorSettings"], function(items) {
@@ -97,9 +86,6 @@
 				settings.inspectorSettings = items.inspectorSettings;
 			} else {
 				settings.inspectorSettings = defaultInspectorSettings;
-				chrome.storage.local.set({
-					inspectorSettings: defaultInspectorSettings
-				}, noop);
 			}
 			callback(settings.inspectorSettings);
 		});
