@@ -17,12 +17,10 @@
 		chrome.storage.local.get(["inspectorSettings"], function(items) {
 			if(items.inspectorSettings) {
 				inspectorSettings = items.inspectorSettings;
-				settingTextarea.value = JSON.stringify(items.inspectorSettings, REPLACER, SPACES);
 			} else {
-				chrome.storage.local.set({inspectorSettings: defaultInspectorSettings}, function() {
-					settingTextarea.value = JSON.stringify(defaultInspectorSettings, REPLACER, SPACES);
-				});
+				chrome.storage.local.set({inspectorSettings: defaultInspectorSettings}, noop);
 			}
+			settingTextarea.value = JSON.stringify(inspectorSettings, REPLACER, SPACES);
 		});
 
 		document.getElementById("defaultOption").addEventListener("click", function() {
@@ -38,14 +36,18 @@
 			var btn = this;
 			btn.setAttribute("disabled", "disabled");
 			settingTextarea.setAttribute("disabled", "disabled");
-			chrome.storage.local.get(function(items) {
-				if(items.inspectorSettings) {
-					inspectorSettings = items.inspectorSettings;
-				}
-				settingTextarea.value = JSON.stringify(inspectorSettings, REPLACER, SPACES);
-				settingTextarea.removeAttribute("disabled");
-				btn.removeAttribute("disabled");
-			});
+			try {
+				chrome.storage.local.get(function(items) {
+					if(items.inspectorSettings) {
+						inspectorSettings = items.inspectorSettings;
+					}
+					settingTextarea.value = JSON.stringify(inspectorSettings, REPLACER, SPACES);
+					settingTextarea.removeAttribute("disabled");
+					btn.removeAttribute("disabled");
+				});
+			} catch(e) {
+				console.log(e);
+			}
 		});
 
 		document.getElementById("saveOption").addEventListener("click", function() {
@@ -60,7 +62,7 @@
 					btn.removeAttribute("disabled");
 				});
 			} catch(e) {
-				alert(e);
+				console.log(e);
 			}
 		});
 	});
@@ -92,4 +94,10 @@
 		}
 		return obj;
 	}
+
+	/**
+	 * noop function
+	 */
+	function noop() {}
+
 })();
