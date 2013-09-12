@@ -14,11 +14,11 @@
 
 	ready(function() {
 		var settingTextarea = document.getElementById("inspectorOption");
-		chrome.storage.local.get(["inspectorSettings"], function(items) {
+		chrome.storage.sync.get(["inspectorSettings"], function(items) {
 			if(items.inspectorSettings) {
 				inspectorSettings = items.inspectorSettings;
 			} else {
-				chrome.storage.local.set({inspectorSettings: defaultInspectorSettings}, noop);
+				chrome.storage.sync.set({inspectorSettings: defaultInspectorSettings}, noop);
 			}
 			settingTextarea.value = JSON.stringify(inspectorSettings, REPLACER, SPACES);
 		});
@@ -37,7 +37,7 @@
 			btn.setAttribute("disabled", "disabled");
 			settingTextarea.setAttribute("disabled", "disabled");
 			try {
-				chrome.storage.local.get(function(items) {
+				chrome.storage.sync.get(function(items) {
 					if(items.inspectorSettings) {
 						inspectorSettings = items.inspectorSettings;
 					}
@@ -57,7 +57,7 @@
 			var settingText = settingTextarea.value;
 			try {
 				var settingJson = JSON.parse(settingText);
-				chrome.storage.local.set({inspectorSettings: settingJson}, function() {
+				chrome.storage.sync.set({inspectorSettings: settingJson}, function() {
 					settingTextarea.removeAttribute("disabled");
 					btn.removeAttribute("disabled");
 				});
