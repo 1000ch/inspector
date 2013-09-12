@@ -15,9 +15,9 @@
 
 	//check chrome storage and update icon.
 	//if data is not set yet, set default settings.
-	chrome.storage.local.get(settingKeys, function(items) {
+	chrome.storage.sync.get(settingKeys, function(items) {
 		if(items.isRunning === undefined) {
-			chrome.storage.local.set({isRunning: true}, noop);
+			chrome.storage.sync.set({isRunning: true}, noop);
 		} else {
 			settings.isRunning = items.isRunning;
 		}
@@ -45,7 +45,7 @@
 		settings.isRunning = !settings.isRunning;
 
 		//save the flag
-		chrome.storage.local.set(settings, noop);
+		chrome.storage.sync.set(settings, noop);
 
 		//change icon state
 		changeIconState(settings.isRunning);
@@ -81,7 +81,7 @@
 	function fetchInspectorSettings(callback) {
 		//get inspectorSettings from chrome storage
 		//if settings are not saved, set default value
-		chrome.storage.local.get(["inspectorSettings"], function(items) {
+		chrome.storage.sync.get(["inspectorSettings"], function(items) {
 			if(items.inspectorSettings) {
 				settings.inspectorSettings = items.inspectorSettings;
 			} else {

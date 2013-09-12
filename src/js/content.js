@@ -13,12 +13,13 @@
 			HTMLInspector.inspect(inspectorSettings);
 			console.log("*** settings from message");
 			console.log(inspectorSettings);
+            console.log("*************************");
 		}
 	});
 
 	//check "isRunning" at chrome storage,
 	//if true is set, execute inspection.
-	chrome.storage.local.get(["isRunning", "inspectorSettings"], function(items) {
+	chrome.storage.sync.get(["isRunning", "inspectorSettings"], function(items) {
 		isRunning = !!items.isRunning;
 		var inspectorSettings = items.inspectorSettings || {};
 		if(!isRunning) {
@@ -28,6 +29,7 @@
 			HTMLInspector.inspect(inspectorSettings);
 			console.log("*** settings from saved data");
 			console.log(inspectorSettings);
+            console.log("*************************");
 		});
 	});
 
