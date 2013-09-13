@@ -22,7 +22,11 @@ Please refer to [README](https://github.com/philipwalton/html-inspector#configur
 
 ## Lisence
 
-HTMLInspector is to see [repository](https://github.com/philipwalton/html-inspector).  
-Contribution resources are correspond to contributors.  
 Copyright [1000ch](https://twitter.com/1000ch)  
-Lisenced under the GPL Lisence version 3.  
+
+Contribution resources are correspond to contributors.  
+This extension is made with following resource.  
+These lisence equivalent distribution.  
+Other resources are lisenced under the GPL Lisence version 3.  
+
++ [HTMLInspector](https://github.com/philipwalton/html-inspector)  
