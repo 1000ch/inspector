@@ -1,0 +1,3 @@
+[submodule "html-inspector"]
+	path = html-inspector
+	url = git@github.com:philipwalton/html-inspector.git

@@ -1,6 +1,6 @@
 {
     "name": "H:inspector",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "permissions": ["tabs", "storage", "*://*/*"],
     "icons": {
       "16": "/src/icon/icon_16.png",
@@ -13,7 +13,7 @@
     },
     "content_scripts": [{
         "matches": ["*://*/*"],
-        "js": ["/src/js/lib/html-inspector.js", "/src/js/content.js"]
+        "js": ["/html-inspector/dist/html-inspector.js", "/src/js/content.js"]
     }],
     "background": {
         "page": "/src/html/background.html"
