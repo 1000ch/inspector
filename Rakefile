@@ -10,7 +10,7 @@ task :copy => [:mkdir] do
     FileUtils.cp_r("./src/js", "./tmp")
     FileUtils.cp_r("./src/icon", "./tmp")
     FileUtils.cp_r("./src/html-inspector", "./tmp")
-    FileUtils.cp("./manifest.json", "./tmp")
+    FileUtils.cp("./src/manifest.json", "./tmp")
 end
 
 desc "compress files"
