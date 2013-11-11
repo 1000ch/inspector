@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "H:inspector",
-  "version": "0.5.2",
+  "version": "0.7.0",
   "description": "HTMLInspector wrapper as chrome extension.",
   "permissions": [
     "tabs",
@@ -19,7 +19,7 @@
   },
   "content_scripts": [{
     "matches": ["*://*/*"],
-    "js": ["/html-inspector/dist/html-inspector.js", "/src/js/content.js"]
+    "js": ["/html-inspector/html-inspector.js", "/js/content.js"]
   }],
   "background": {
     "page": "/html/background.html"

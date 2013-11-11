@@ -29,18 +29,6 @@
     changeIconState(settings.isRunning);
   });
 
-  //when a tab is activated,
-  //update contentScript settings.
-  chrome.tabs.onActivated.addListener(function(activeInfo) {
-    //if active tab is changed
-    changeIconState(settings.isRunning);
-
-    fetchInspectorSettings(function(inspectorSettings) {
-      //update contentScript setting
-      sendMessage(activeInfo.tabId, settings.isRunning, settings.inspectorSettings, noop);
-    });
-  });
-
   //when the icon is clicked
   chrome.browserAction.onClicked.addListener(function(tab) {
     if(!tab) {
@@ -73,7 +61,9 @@
       chrome.tabs.sendMessage(tabId, {
         runningState: isRunning,
         inspectorSettings: inspectorSettings
-      }, callback);
+      }, function(data) {
+        console.debug(data);
+      });
     } catch(e) {
       console.log(e);
     }
@@ -104,10 +94,10 @@
     var iconPath = "";
     var badgeText = "";
     if(isRunning) {
-      iconPath = "/src/icon/badge_on.png";
+      iconPath = "/icon/badge_on.png";
       badgeText = "on";
     } else {
-      iconPath = "/src/icon/badge_off.png";
+      iconPath = "/icon/badge_off.png";
       badgeText = "";
     }
     chrome.browserAction.setIcon({

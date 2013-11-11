@@ -23,9 +23,7 @@
     }
     if(HTMLInspector) {
       HTMLInspector.inspect(inspectorSettings);
-      console.log("*** settings from message");
-      console.log(inspectorSettings);
-      console.log("*************************");
+      sendResponse(inspectorSettings);
     }
   });
 
